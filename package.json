@@ -1,0 +1,26 @@
+{
+  "name": "valorant-api",
+  "version": "1.0.0",
+  "description": "API CRUD de agentes do jogo Valorant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anaclarav1337-hub/valorant-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/anaclarav1337-hub/valorant-api/issues"
+  },
+  "homepage": "https://github.com/anaclarav1337-hub/valorant-api#readme",
+  "dependencies": {
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "mongoose": "^9.11.0"
+  }
+}
