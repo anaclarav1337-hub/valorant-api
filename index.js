@@ -6,7 +6,12 @@ const Agente = require("./models/Agente");
 
 const app = express();
 
+app.use(express.static("public"));
 app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/public/index.html");
+});
 
 // Conexão com o MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -24,11 +29,14 @@ app.get("/agentes", async (req, res) => {
     res.json(agentes);
 });
 
-// POST - cadastrar agente
+
+ // POST - cadastrar agente
 app.post("/agentes", async (req, res) => {
     const novoAgente = new Agente({
         nome: req.body.nome,
-        funcao: req.body.funcao
+        funcao: req.body.funcao,
+        nacionalidade: req.body.nacionalidade,
+        habilidades: req.body.habilidades
     });
 
     await novoAgente.save();
@@ -49,15 +57,18 @@ app.get("/agentes/:id", async (req, res) => {
     res.json(agente);
 });
 
-// PUT - atualizar agente
+
+ // PUT - atualizar agente
 app.put("/agentes/:id", async (req, res) => {
     const agente = await Agente.findByIdAndUpdate(
         req.params.id,
         {
             nome: req.body.nome,
-            funcao: req.body.funcao
+            funcao: req.body.funcao,
+            nacionalidade: req.body.nacionalidade,
+            habilidades: req.body.habilidades
         },
-        { new: true }
+        { new: true, runValidators: true }
     );
 
     if (!agente) {
@@ -86,9 +97,7 @@ app.delete("/agentes/:id", async (req, res) => {
 
 // Rota inicial
 app.get("/", (req, res) => {
-    res.json({
-        mensagem: "API Valorant funcionando!"
-    });
+    res.sendFile(__dirname + "/public/index.html");
 });
 
 app.listen(3000, () => {
